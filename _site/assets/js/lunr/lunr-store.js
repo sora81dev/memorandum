@@ -16,4 +16,4 @@ var store = [{
         "tags": [],
         "url": "/3/",
         "teaser": null
-      }]
+      },]
