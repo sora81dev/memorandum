@@ -113,7 +113,7 @@ analytics:
 # Site Author
 author:
   name             : "Sora"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/images/icon.png"
   bio              : "Robocup / Programmer"
   location         : "日本 / Japan"
   links:
