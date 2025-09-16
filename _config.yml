@@ -30,11 +30,18 @@ github_username:  sora81dev
 defaults:
     - scope:
         path: ""
-        type: "posts"
+        type: posts
       values:
         layout: single
+        show_date: true
         author_profile: ture
         permalink: "/:title/"
+        read_time: true
+
+date_format: "%Y-%m-%d"
+
+enable_copy_code_button: true
+
 
 # Build settings
 # theme: minima # 消す 
