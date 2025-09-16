@@ -17,6 +17,12 @@ var store = [{
         "url": "/3/",
         "teaser": null
       },{
+        "title": "GitHub Pagesで、「Error: The process '/opt/hostedtoolcache/Ruby/3.4.1/x64/bin/bundle' failed with exit code 16」と出た時の対処法",
+        "excerpt":"エラーの原因  Gemfile.lock に、GitHub Pagesで使われるLinux(x86_64)向けの情報がないため。   解決方法  Linux用のプラットフォーム情報をGemfile.lockに追加する   bundle lock --add-platform x86_64-linux   bundle lock --add-platform ruby  ","categories": ["GitHub"],
+        "tags": [],
+        "url": "/4/",
+        "teaser": null
+      },{
     "title": "Posts by Category",
     "excerpt":" ","url": "http://localhost:4000/categories/"
   },{
