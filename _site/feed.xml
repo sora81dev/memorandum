@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-09-16T20:40:44+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">そらの忘備録</title><subtitle>誰かの役に立てるといいな</subtitle><author><name>Sora</name></author><entry><title type="html">GitHub Pagesで、「Error: The process ‘/opt/hostedtoolcache/Ruby/3.4.1/x64/bin/bundle’ failed with exit code 16」と出た時の対処法</title><link href="http://localhost:4000/4/" rel="alternate" type="text/html" title="GitHub Pagesで、「Error: The process ‘/opt/hostedtoolcache/Ruby/3.4.1/x64/bin/bundle’ failed with exit code 16」と出た時の対処法" /><published>2025-09-16T20:40:00+09:00</published><updated>2025-09-16T20:40:00+09:00</updated><id>http://localhost:4000/4</id><content type="html" xml:base="http://localhost:4000/4/"><![CDATA[<h2 id="エラーの原因">エラーの原因</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-09-16T21:18:32+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">そらの忘備録</title><subtitle>誰かの役に立てるといいな</subtitle><author><name>Sora</name></author><entry><title type="html">GitHub Pagesで「Error: The process ‘/opt/hostedtoolcache/Ruby/3.4.1/x64/bin/bundle’ failed with exit code 16」と出た時の対処法</title><link href="http://localhost:4000/4/" rel="alternate" type="text/html" title="GitHub Pagesで「Error: The process ‘/opt/hostedtoolcache/Ruby/3.4.1/x64/bin/bundle’ failed with exit code 16」と出た時の対処法" /><published>2025-09-16T20:40:00+09:00</published><updated>2025-09-16T20:40:00+09:00</updated><id>http://localhost:4000/4</id><content type="html" xml:base="http://localhost:4000/4/"><![CDATA[<h2 id="エラーの原因">エラーの原因</h2>
 <p><code class="language-plaintext highlighter-rouge">Gemfile.lock</code> に、GitHub Pagesで使われるLinux(x86_64)向けの情報がないため。</p>
 
 <h2 id="解決方法">解決方法</h2>
@@ -17,10 +17,10 @@
 
 <h2 id="解決方法">解決方法</h2>
 
-<div class="language-zsh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git remote <span class="nb">rm </span>origin
+<div class="language-zsh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote <span class="nb">rm </span>origin
 </code></pre></div></div>
 
-<p>これで現在のリモートレポジトリが削除されます。</p>]]></content><author><name>Sora</name></author><category term="git" /><summary type="html"><![CDATA[エラーの意味 error: remote origin already existsの意味は読んで字の如く、]]></summary></entry><entry><title type="html">GitHub Pagesで、「Error: The process ‘/opt/hostedtoolcache/Ruby/3.1.6/x64/bin/gem’ failed with exit code 1」と出た時の対処法</title><link href="http://localhost:4000/2/" rel="alternate" type="text/html" title="GitHub Pagesで、「Error: The process ‘/opt/hostedtoolcache/Ruby/3.1.6/x64/bin/gem’ failed with exit code 1」と出た時の対処法" /><published>2025-09-16T18:45:00+09:00</published><updated>2025-09-16T18:45:00+09:00</updated><id>http://localhost:4000/2</id><content type="html" xml:base="http://localhost:4000/2/"><![CDATA[<h2 id="解決方法">解決方法</h2>
+<p>これで現在のリモートレポジトリが削除されます。</p>]]></content><author><name>Sora</name></author><category term="git" /><summary type="html"><![CDATA[エラーの意味 error: remote origin already existsの意味は読んで字の如く、]]></summary></entry><entry><title type="html">GitHub Pagesで「Error: The process ‘/opt/hostedtoolcache/Ruby/3.1.6/x64/bin/gem’ failed with exit code 1」と出た時の対処法</title><link href="http://localhost:4000/2/" rel="alternate" type="text/html" title="GitHub Pagesで「Error: The process ‘/opt/hostedtoolcache/Ruby/3.1.6/x64/bin/gem’ failed with exit code 1」と出た時の対処法" /><published>2025-09-16T18:45:00+09:00</published><updated>2025-09-16T18:45:00+09:00</updated><id>http://localhost:4000/2</id><content type="html" xml:base="http://localhost:4000/2/"><![CDATA[<h2 id="解決方法">解決方法</h2>
 <p>Rubyの要求バージョンを上げる</p>
 
 <ol>
@@ -42,7 +42,7 @@
   <p>バージョンはそのまま入れるわけではなく、<code class="language-plaintext highlighter-rouge">a.b.c</code> (上の図の3.4.2)の<code class="language-plaintext highlighter-rouge">a.b</code>(上の図の3.4)のみを入れる</p>
 </blockquote>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jobs</span><span class="pi">:</span>
+<div class="language-yaml no-copy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jobs</span><span class="pi">:</span>
     <span class="na">build</span><span class="pi">:</span>
         <span class="s">...</span>
         <span class="s">steps</span><span class="err">:</span>

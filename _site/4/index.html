@@ -10,7 +10,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>GitHub Pagesで、「Error: The process ‘/opt/hostedtoolcache/Ruby/3.4.1/x64/bin/bundle’ failed with exit code 16」と出た時の対処法 - そらの忘備録</title>
+<!-- begin _includes/seo.html --><title>GitHub Pagesで「Error: The process ‘/opt/hostedtoolcache/Ruby/3.4.1/x64/bin/bundle’ failed with exit code 16」と出た時の対処法 - そらの忘備録</title>
 <meta name="description" content="エラーの原因 Gemfile.lock に、GitHub Pagesで使われるLinux(x86_64)向けの情報がないため。">
 
 
@@ -23,7 +23,7 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:site_name" content="そらの忘備録">
-<meta property="og:title" content="GitHub Pagesで、「Error: The process ‘/opt/hostedtoolcache/Ruby/3.4.1/x64/bin/bundle’ failed with exit code 16」と出た時の対処法">
+<meta property="og:title" content="GitHub Pagesで「Error: The process ‘/opt/hostedtoolcache/Ruby/3.4.1/x64/bin/bundle’ failed with exit code 16」と出た時の対処法">
 <meta property="og:url" content="http://localhost:4000/4/">
 
 
@@ -34,7 +34,7 @@
 
 
   <meta name="twitter:site" content="@sora81dev">
-  <meta name="twitter:title" content="GitHub Pagesで、「Error: The process ‘/opt/hostedtoolcache/Ruby/3.4.1/x64/bin/bundle’ failed with exit code 16」と出た時の対処法">
+  <meta name="twitter:title" content="GitHub Pagesで「Error: The process ‘/opt/hostedtoolcache/Ruby/3.4.1/x64/bin/bundle’ failed with exit code 16」と出た時の対処法">
   <meta name="twitter:description" content="エラーの原因 Gemfile.lock に、GitHub Pagesで使われるLinux(x86_64)向けの情報がないため。">
   <meta name="twitter:url" content="http://localhost:4000/4/">
 
@@ -158,6 +158,12 @@
 <div itemscope itemtype="https://schema.org/Person" class="h-card">
 
   
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/icon.png" alt="Sora" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
 
   <div class="author__content">
     <h3 class="author__name p-name" itemprop="name">
@@ -269,7 +275,7 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="GitHub Pagesで、「Error: The process ‘/opt/hostedtoolcache/Ruby/3.4.1/x64/bin/bundle’ failed with exit code 16」と出た時の対処法">
+    <meta itemprop="headline" content="GitHub Pagesで「Error: The process ‘/opt/hostedtoolcache/Ruby/3.4.1/x64/bin/bundle’ failed with exit code 16」と出た時の対処法">
     <meta itemprop="description" content="エラーの原因Gemfile.lock に、GitHub Pagesで使われるLinux(x86_64)向けの情報がないため。">
     <meta itemprop="datePublished" content="2025-09-16T20:40:00+09:00">
     
@@ -278,7 +284,7 @@
       
         <header>
           <h1 id="page-title" class="page__title" itemprop="headline">
-            <a href="http://localhost:4000/4/" itemprop="url">GitHub Pagesで、「Error: The process ‘/opt/hostedtoolcache/Ruby/3.4.1/x64/bin/bundle’ failed with exit code 16」と出た時の対処法
+            <a href="http://localhost:4000/4/" itemprop="url">GitHub Pagesで「Error: The process ‘/opt/hostedtoolcache/Ruby/3.4.1/x64/bin/bundle’ failed with exit code 16」と出た時の対処法
 </a>
           </h1>
           
@@ -322,6 +328,55 @@
         
       </section>
 
+      <button id="like-btn">参考になった 👍</button>
+<span id="like-count">0</span>
+
+<script type="module">
+  import { createClient } from "https://esm.sh/@supabase/supabase-js";
+
+  const SUPABASE_URL = "https://ugkzcytoafrfmjmrattv.supabase.co"; // 自分のURL
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVna3pjeXRvYWZyZm1qbXJhdHR2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgwMTkxMTgsImV4cCI6MjA3MzU5NTExOH0.Ss5ENpzTjiVl6-I109dCYlueaWLcXR6HfMX57ptp6vs"; // anonキー
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const path = window.location.pathname;
+  const postId = path.match(/\d+/)[0]; // 数字だけを post_id に
+
+  const likeBtn = document.getElementById("like-btn");
+  const likeCount = document.getElementById("like-count");
+
+  async function loadCount() {
+    let { data } = await supabase
+      .from("feedback")
+      .select("count")
+      .eq("post_id", postId)
+      .single();
+
+    likeCount.textContent = data ? data.count : 0;
+  }
+
+  likeBtn.addEventListener("click", async () => {
+    let { data, error } = await supabase
+      .from("feedback")
+      .upsert({ post_id: postId }, { onConflict: "post_id" })
+      .select()
+      .single();
+
+    if (!error) {
+      const newCount = (data.count || 0) + 1;
+
+      await supabase
+        .from("feedback")
+        .update({ count: newCount })
+        .eq("post_id", postId);
+
+      likeCount.textContent = newCount;
+      likeBtn.disabled = true;
+    }
+  });
+
+  loadCount();
+</script>
+
       <footer class="page__meta">
         
         
@@ -351,7 +406,7 @@
       <section class="page__share">
   <h4 class="page__share-title">共有</h4>
 
-  <a href="https://x.com/intent/tweet?via=sora81dev&text=GitHub+Pages%E3%81%A7%E3%80%81%E3%80%8CError%3A+The+process+%27%2Fopt%2Fhostedtoolcache%2FRuby%2F3.4.1%2Fx64%2Fbin%2Fbundle%27+failed+with+exit+code+16%E3%80%8D%E3%81%A8%E5%87%BA%E3%81%9F%E6%99%82%E3%81%AE%E5%AF%BE%E5%87%A6%E6%B3%95%20http%3A%2F%2Flocalhost%3A4000%2F4%2F" class="btn btn--x" aria-label="Share on X" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="共有 X">
+  <a href="https://x.com/intent/tweet?via=sora81dev&text=GitHub+Pages%E3%81%A7%E3%80%8CError%3A+The+process+%27%2Fopt%2Fhostedtoolcache%2FRuby%2F3.4.1%2Fx64%2Fbin%2Fbundle%27+failed+with+exit+code+16%E3%80%8D%E3%81%A8%E5%87%BA%E3%81%9F%E6%99%82%E3%81%AE%E5%AF%BE%E5%87%A6%E6%B3%95%20http%3A%2F%2Flocalhost%3A4000%2F4%2F" class="btn btn--x" aria-label="Share on X" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="共有 X">
     <i class="fab fa-fw fa-x-twitter" aria-hidden="true"></i><span> X</span>
   </a>
 
@@ -363,7 +418,7 @@
     <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span>
   </a>
 
-  <a href="https://bsky.app/intent/compose?text=GitHub+Pages%E3%81%A7%E3%80%81%E3%80%8CError%3A+The+process+%27%2Fopt%2Fhostedtoolcache%2FRuby%2F3.4.1%2Fx64%2Fbin%2Fbundle%27+failed+with+exit+code+16%E3%80%8D%E3%81%A8%E5%87%BA%E3%81%9F%E6%99%82%E3%81%AE%E5%AF%BE%E5%87%A6%E6%B3%95%20http%3A%2F%2Flocalhost%3A4000%2F4%2F" class="btn btn--bluesky" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="共有 Bluesky">
+  <a href="https://bsky.app/intent/compose?text=GitHub+Pages%E3%81%A7%E3%80%8CError%3A+The+process+%27%2Fopt%2Fhostedtoolcache%2FRuby%2F3.4.1%2Fx64%2Fbin%2Fbundle%27+failed+with+exit+code+16%E3%80%8D%E3%81%A8%E5%87%BA%E3%81%9F%E6%99%82%E3%81%AE%E5%AF%BE%E5%87%A6%E6%B3%95%20http%3A%2F%2Flocalhost%3A4000%2F4%2F" class="btn btn--bluesky" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="共有 Bluesky">
     <i class="fab fa-fw fa-bluesky" aria-hidden="true"></i><span> Bluesky</span>
   </a>
 </section>
@@ -384,7 +439,6 @@
 
     
   </article>
-
   
   
     
@@ -446,7 +500,7 @@ error: remote origin already existsの意味は読んで字の如く、
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/2/" rel="permalink">GitHub Pagesで、「Error: The process ‘/opt/hostedtoolcache/Ruby/3.1.6/x64/bin/gem’ failed with exit code 1」と出た時の対処法
+        <a href="/2/" rel="permalink">GitHub Pagesで「Error: The process ‘/opt/hostedtoolcache/Ruby/3.1.6/x64/bin/gem’ failed with exit code 1」と出た時の対処法
 </a>
       
     </h2>
@@ -527,7 +581,6 @@ Rubyの要求バージョンを上げる
   
   
 </div>
-
       
     </div>
 

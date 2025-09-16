@@ -52,6 +52,55 @@ layout: default
         {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
       </section>
 
+      <button id="like-btn">参考になった 👍</button>
+<span id="like-count">0</span>
+
+<script type="module">
+  import { createClient } from "https://esm.sh/@supabase/supabase-js";
+
+  const SUPABASE_URL = "https://ugkzcytoafrfmjmrattv.supabase.co"; // 自分のURL
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVna3pjeXRvYWZyZm1qbXJhdHR2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgwMTkxMTgsImV4cCI6MjA3MzU5NTExOH0.Ss5ENpzTjiVl6-I109dCYlueaWLcXR6HfMX57ptp6vs"; // anonキー
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const path = window.location.pathname;
+  const postId = path.match(/\d+/)[0]; // 数字だけを post_id に
+
+  const likeBtn = document.getElementById("like-btn");
+  const likeCount = document.getElementById("like-count");
+
+  async function loadCount() {
+    let { data } = await supabase
+      .from("feedback")
+      .select("count")
+      .eq("post_id", postId)
+      .single();
+
+    likeCount.textContent = data ? data.count : 0;
+  }
+
+  likeBtn.addEventListener("click", async () => {
+    let { data, error } = await supabase
+      .from("feedback")
+      .upsert({ post_id: postId }, { onConflict: "post_id" })
+      .select()
+      .single();
+
+    if (!error) {
+      const newCount = (data.count || 0) + 1;
+
+      await supabase
+        .from("feedback")
+        .update({ count: newCount })
+        .eq("post_id", postId);
+
+      likeCount.textContent = newCount;
+      likeBtn.disabled = true;
+    }
+  });
+
+  loadCount();
+</script>
+
       <footer class="page__meta">
         {% if site.data.ui-text[site.locale].meta_label %}
           <h4 class="page__meta-title">{{ site.data.ui-text[site.locale].meta_label }}</h4>
@@ -76,7 +125,6 @@ layout: default
       {% endif %}
     {% endif %}
   </article>
-
   {% comment %}<!-- only show related on a post page when `related: true` -->{% endcomment %}
   {% if page.id and page.related and site.related_posts.size > 0 %}
     {% include page__related.html posts=site.related_posts %}

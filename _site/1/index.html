@@ -158,6 +158,12 @@
 <div itemscope itemtype="https://schema.org/Person" class="h-card">
 
   
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/icon.png" alt="Sora" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
 
   <div class="author__content">
     <h3 class="author__name p-name" itemprop="name">
@@ -324,6 +330,55 @@ General→Screen Capture</p>
         
       </section>
 
+      <button id="like-btn">参考になった 👍</button>
+<span id="like-count">0</span>
+
+<script type="module">
+  import { createClient } from "https://esm.sh/@supabase/supabase-js";
+
+  const SUPABASE_URL = "https://ugkzcytoafrfmjmrattv.supabase.co"; // 自分のURL
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVna3pjeXRvYWZyZm1qbXJhdHR2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgwMTkxMTgsImV4cCI6MjA3MzU5NTExOH0.Ss5ENpzTjiVl6-I109dCYlueaWLcXR6HfMX57ptp6vs"; // anonキー
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const path = window.location.pathname;
+  const postId = path.match(/\d+/)[0]; // 数字だけを post_id に
+
+  const likeBtn = document.getElementById("like-btn");
+  const likeCount = document.getElementById("like-count");
+
+  async function loadCount() {
+    let { data } = await supabase
+      .from("feedback")
+      .select("count")
+      .eq("post_id", postId)
+      .single();
+
+    likeCount.textContent = data ? data.count : 0;
+  }
+
+  likeBtn.addEventListener("click", async () => {
+    let { data, error } = await supabase
+      .from("feedback")
+      .upsert({ post_id: postId }, { onConflict: "post_id" })
+      .select()
+      .single();
+
+    if (!error) {
+      const newCount = (data.count || 0) + 1;
+
+      await supabase
+        .from("feedback")
+        .update({ count: newCount })
+        .eq("post_id", postId);
+
+      likeCount.textContent = newCount;
+      likeBtn.disabled = true;
+    }
+  });
+
+  loadCount();
+</script>
+
       <footer class="page__meta">
         
         
@@ -377,7 +432,7 @@ General→Screen Capture</p>
       <a href="#" class="pagination--pager disabled">前へ</a>
     
     
-      <a href="/2/" class="pagination--pager" title="GitHub Pagesで、「Error: The process ‘/opt/hostedtoolcache/Ruby/3.1.6/x64/bin/gem’ failed with exit code 1」と出た時の対処法">次へ</a>
+      <a href="/2/" class="pagination--pager" title="GitHub Pagesで「Error: The process ‘/opt/hostedtoolcache/Ruby/3.1.6/x64/bin/gem’ failed with exit code 1」と出た時の対処法">次へ</a>
     
   </nav>
 
@@ -386,7 +441,6 @@ General→Screen Capture</p>
 
     
   </article>
-
   
   
     
@@ -405,7 +459,7 @@ General→Screen Capture</p>
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/4/" rel="permalink">GitHub Pagesで、「Error: The process ‘/opt/hostedtoolcache/Ruby/3.4.1/x64/bin/bundle’ failed with exit code 16」と出た時の対処法
+        <a href="/4/" rel="permalink">GitHub Pagesで「Error: The process ‘/opt/hostedtoolcache/Ruby/3.4.1/x64/bin/bundle’ failed with exit code 16」と出た時の対処法
 </a>
       
     </h2>
@@ -491,7 +545,7 @@ error: remote origin already existsの意味は読んで字の如く、
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/2/" rel="permalink">GitHub Pagesで、「Error: The process ‘/opt/hostedtoolcache/Ruby/3.1.6/x64/bin/gem’ failed with exit code 1」と出た時の対処法
+        <a href="/2/" rel="permalink">GitHub Pagesで「Error: The process ‘/opt/hostedtoolcache/Ruby/3.1.6/x64/bin/gem’ failed with exit code 1」と出た時の対処法
 </a>
       
     </h2>
@@ -530,7 +584,6 @@ Rubyの要求バージョンを上げる
   
   
 </div>
-
       
     </div>
 
