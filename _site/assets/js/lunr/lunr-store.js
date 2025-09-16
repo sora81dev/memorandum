@@ -16,4 +16,19 @@ var store = [{
         "tags": [],
         "url": "/3/",
         "teaser": null
-      },]
+      },{
+    "title": "Posts by Category",
+    "excerpt":" ","url": "http://localhost:4000/categories/"
+  },{
+    "title": "Posts by Tag",
+    "excerpt":"","url": "http://localhost:4000/tags/"
+  },{
+    "title": "Apple",
+    "excerpt":"","url": "http://localhost:4000/categories/apple/"
+  },{
+    "title": "GitHub",
+    "excerpt":"","url": "http://localhost:4000/categories/github/"
+  },{
+    "title": "git",
+    "excerpt":"","url": "http://localhost:4000/categories/git/"
+  }]
