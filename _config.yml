@@ -32,12 +32,34 @@ defaults:
         path: ""
         type: "posts"
       values:
+        layout: single
+        author_profile: ture
         permalink: "/:title/"
 
 # Build settings
-theme: minima
+# theme: minima # 消す 
+remote_theme: mmistakes/minimal-mistakes@4.27.3
+minimal_mistakes_skin: "default" #"air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+
 plugins:
   - jekyll-feed
+  - jekyll-include-cache # 追加
+
+author:
+  name: "Mikito Yoshiya"
+  avatar: "/assets/img/avatar.png"
+  bio: "Software Engineer"
+  location: "Tokyo, Japan"
+  links:
+    - label: "Blog"
+      icon: "fas fa-fw fa-link"
+      url: "https://mikimemo.hateblo.jp"
+    - label: "Twitter"
+      icon: "fab fa-fw fa-twitter-square"
+      url: "https://twitter.com/mikito0521"
+    - label: "Facebook"
+      icon: "fab fa-fw fa-facebook-square"
+      url: "https://www.facebook.com/mikito.yoshiya"
 
 # Exclude from processing.
 # The following items will not be processed, by default.
